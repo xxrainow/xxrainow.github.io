@@ -1,0 +1,317 @@
+:root {
+  color-scheme: light;
+  --ink: #25242b;
+  --edge: clamp(22px, 3.3vw, 56px);
+}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+  min-width: 280px;
+  width: 100%;
+  height: 100%;
+}
+body {
+  color: var(--ink);
+  background: #f5f1db;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+button {
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 6px;
+}
+button {
+  touch-action: manipulation;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+.field {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 20%, #ff83bc 0, transparent 38%),
+    radial-gradient(ellipse at 90% 70%, #66e4d5 0, transparent 40%),
+    radial-gradient(ellipse at 45% 70%, #ffe459 0, transparent 48%),
+    #f5efd8;
+}
+#art {
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+.page {
+  position: relative;
+  min-height: 100svh;
+  height: 100%;
+  isolation: isolate;
+  pointer-events: none;
+}
+header {
+  position: absolute;
+  top: max(var(--edge), env(safe-area-inset-top));
+  left: var(--edge);
+  right: var(--edge);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 2;
+}
+.identity {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  pointer-events: auto;
+}
+.identity span {
+  display: block;
+  margin-top: 8px;
+  font: 12px/1.4 monospace;
+  letter-spacing: 0.01em;
+  font-weight: 400;
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 27px;
+  pointer-events: auto;
+}
+nav button,
+nav a {
+  padding: 3px 0 5px;
+  border: 0;
+  background: none;
+  font-size: 14px;
+  position: relative;
+}
+nav button::after,
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s;
+}
+nav button:hover::after,
+nav a:hover::after {
+  transform: scaleX(1);
+}
+.title {
+  position: absolute;
+  left: calc(var(--edge) - 0.012em);
+  right: var(--edge);
+  bottom: clamp(10px, 10vh, 180px);
+  margin: 0;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+  font-size: clamp(70px, 17.25vw, 120px);
+  line-height: 0.75;
+  letter-spacing: -0.085em;
+  font-weight: 400;
+}
+.title .x {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-style: italic;
+  letter-spacing: -0.12em;
+  font-weight: 400;
+}
+footer {
+  position: absolute;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: var(--edge);
+  right: var(--edge);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+.tools {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  gap: 3px;
+  border: 1px solid #25242b25;
+  background: #fff8;
+  border-radius: 28px;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  pointer-events: auto;
+}
+.tools button {
+  border: 0;
+  padding: 10px 14px;
+  background: transparent;
+  border-radius: 24px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+.tools button:hover {
+  background: #fff9;
+}
+.tools button[aria-pressed='true'] {
+  background: #25242b;
+  color: #fff;
+}
+.tools svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+}
+.live {
+  position: fixed;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+dialog {
+  position: fixed;
+  inset: 0;
+  width: min(480px, calc(100% - 40px));
+  margin: auto;
+  padding: 38px;
+  color: var(--ink);
+  border: 1px solid #25242b30;
+  border-radius: 2px;
+  background: #fcfaf2f5;
+  box-shadow: 0 25px 100px #34303f18;
+}
+dialog::backdrop {
+  background: #f7f1df55;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+dialog h2 {
+  margin: 18px 0 24px;
+  font-size: 48px;
+  font-weight: 400;
+  letter-spacing: -0.065em;
+}
+dialog p {
+  margin: 0 0 16px;
+  font-size: 16px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+dialog .eyebrow {
+  font: 11px/1.6 monospace;
+  letter-spacing: 0.08em;
+}
+dialog a {
+  display: inline-block;
+  margin-top: 10px;
+  border-bottom: 1px solid;
+  font-size: 14px;
+}
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  border: 0;
+  background: none;
+  width: 32px;
+  height: 32px;
+  font-size: 25px;
+  font-weight: 300;
+}
+@media (min-width: 1700px) {
+  .title {
+    font-size: 17.6vw;
+  }
+}
+@media (max-width: 600px) {
+  header {
+    top: max(27px, env(safe-area-inset-top));
+  }
+  nav {
+    gap: 20px;
+  }
+  .identity span {
+    max-width: 130px;
+    font-size: 10px;
+  }
+  .note {
+    top: 32%;
+    font-size: 17px;
+  }
+  .title {
+    font-size: 17vw;
+    bottom: 185px;
+  }
+  .caption {
+    bottom: 145px;
+    font-size: 10px;
+  }
+  footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+    bottom: max(22px, env(safe-area-inset-bottom));
+  }
+  .tools {
+    align-self: flex-end;
+  }
+  .tools button {
+    padding: 10px 12px;
+  }
+  .hint {
+    font-size: 10px;
+  }
+}
+@media (pointer: coarse) {
+  .hint .mouse {
+    display: none;
+  }
+  .hint .touch {
+    display: inline;
+  }
+}
+@media (max-height: 480px) and (min-width: 601px) {
+  .note {
+    top: 30%;
+    font-size: 15px;
+  }
+  .title {
+    font-size: 15vw;
+    bottom: 100px;
+  }
+  .caption {
+    bottom: 69px;
+  }
+  footer {
+    bottom: 12px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::after {
+    transition: none !important;
+  }
+}
