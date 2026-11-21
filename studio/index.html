@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#0c0c0d" />
+    <meta
+      name="description"
+      content="xxrainow Studio — 움직임, 인터랙션, 새로운 모양을 탐구하는 개인 실험실."
+    />
+    <title>xxrainow — Studio</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230c0c0d'/%3E%3Ctext x='32' y='44' text-anchor='middle' font-family='Georgia' font-style='italic' font-size='46' fill='%23ededeb'%3Ex%3C/text%3E%3C/svg%3E"
+    />
+    <link
+      rel="preconnect"
+      href="https://pub-86dc5b5484314368ac5436a674b0d919.r2.dev"
+      crossorigin
+    />
+    <link rel="stylesheet" href="./studio.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    ></script>
+  </head>
+  <body>
+    <a class="home-link" href="../" aria-label="무지개 홈으로 돌아가기"
+      ><span class="home-symbol">✳</span> xxrainow</a
+    >
+    <p class="collection-note">
+      Personal playground <span>/</span> demo collection
+    </p>
+    <main>
+      <section
+        id="gallery"
+        class="view"
+        aria-label="Gallery — 영상 구체"
+        tabindex="-1"
+      >
+        <div
+          class="stage"
+          id="gallery-stage"
+          tabindex="0"
+          role="group"
+          aria-label="드래그로 회전, 방향키로 영상 선택, Enter로 확대"
+        ></div>
+        <div class="side-label left">xxrainow</div>
+        <div class="side-label right">Experiments in motion</div>
+        <div class="intro" id="intro">
+          <span class="intro-mark">xx.st</span><span class="counter">001</span
+          ><button id="skip-intro" type="button">Skip intro</button>
+        </div>
+        <div class="gallery-caption">
+          <span id="caption-title"></span><em id="caption-category"></em>
+        </div>
+        <p class="gallery-hint">
+          DRAG TO EXPLORE <span>·</span> SELECT TO OPEN
+        </p>
+        <button id="gallery-close" class="zoom-close pill" type="button" hidden>
+          Close preview
+        </button>
+        <article id="overview" class="overview" hidden>
+          <div class="overview-heading">
+            <h2></h2>
+            <em></em
+            ><button class="pill" id="overview-close" type="button">
+              Close
+            </button>
+          </div>
+          <p></p>
+          <div class="tags">
+            <span>Preview video</span><span>MotionSites reference</span
+            ><span>Live WebGL</span>
+          </div>
+        </article>
+      </section>
+      <section
+        id="projects"
+        class="view"
+        aria-label="Projects — 레퍼런스 인덱스"
+        tabindex="-1"
+        inert
+      >
+        <div class="stage" id="projects-stage" aria-hidden="true"></div>
+        <div
+          id="project-scroll"
+          class="project-scroll"
+          tabindex="0"
+          aria-label="프로젝트 목록, 스크롤하여 탐색"
+        >
+          <h1 class="projects-heading">
+            A Collection of <em>Demo Experiments</em>
+          </h1>
+          <p class="projects-note">
+            A reference library for learning. These are not my commissioned
+            projects.
+          </p>
+          <div id="project-grid" class="project-grid"></div>
+          <footer class="index-footer">
+            <span>xxrainow — Study index</span
+            ><span>MotionSites · 2025–2026</span>
+          </footer>
+        </div>
+      </section>
+      <section
+        id="about"
+        class="view"
+        aria-label="About — 인터랙티브 스튜디오"
+        tabindex="-1"
+        inert
+      >
+        <div
+          class="stage"
+          id="about-stage"
+          tabindex="0"
+          role="group"
+          aria-label="스크롤 또는 방향키로 글 탐색"
+        ></div>
+        <button
+          class="bot-hit"
+          id="bot-hit"
+          type="button"
+          aria-label="로봇과 놀기: 빛의 파동 만들기"
+        ></button>
+        <div class="sr-only">
+          <h1>
+            Shaping little experiments into restless, curious and wildly kinetic
+            things that keep becoming.
+          </h1>
+          <p>
+            xxrainow의 개인 실험실. 움직임, 색, 질감과 상호작용을 탐구합니다.
+            프로젝트 영상은 MotionSites 디자인 레퍼런스입니다.
+          </p>
+          <a href="https://github.com/xxrainow">GitHub</a>
+        </div>
+        <p class="about-hint">SCROLL <span>›</span></p>
+      </section>
+    </main>
+    <nav class="dock" aria-label="Studio 뷰 선택">
+      <a class="dock-brand" href="#gallery" aria-label="갤러리 홈">xx.st</a
+      ><span class="divider"></span>
+      <a class="tab" href="#gallery" data-view="gallery"
+        ><em>Gallery</em><span>1</span></a
+      >
+      <a class="tab" href="#projects" data-view="projects"
+        ><em>Projects</em><span>2</span></a
+      >
+      <a class="tab" href="#about" data-view="about"
+        ><em>About</em><span>3</span></a
+      >
+      <span class="divider"></span
+      ><button
+        class="menu-toggle"
+        type="button"
+        aria-label="메뉴 열기"
+        aria-expanded="false"
+        aria-controls="dock-menu"
+      >
+        <span></span>
+      </button>
+    </nav>
+    <div id="dock-menu" class="dock-menu" inert>
+      <p>An independent space. Always in progress.</p>
+      <a href="#about">Studio <span>03</span></a
+      ><a href="#projects">Index <span>02</span></a
+      ><a href="#gallery">Sphere <span>01</span></a
+      ><a href="../">Rainbow home <span>⌂</span></a
+      ><a
+        href="https://github.com/xxrainow"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub <span>↗</span></a
+      >
+    </div>
+    <div id="cursor-label" class="cursor-label" aria-hidden="true">View</div>
+    <dialog id="lightbox" class="lightbox" aria-labelledby="lightbox-title">
+      <div class="lightbox-content">
+        <div id="lightbox-media"></div>
+        <div class="lightbox-heading">
+          <h2 id="lightbox-title"></h2>
+          <em></em
+          ><button class="pill" id="lightbox-close" type="button">Close</button>
+        </div>
+        <p class="lightbox-description"></p>
+        <p class="lightbox-credit">
+          MotionSites preview · Design reference, not original client work.
+        </p>
+      </div>
+    </dialog>
+    <div class="error-message" id="load-error" hidden>
+      <h1>Studio is taking a moment.</h1>
+      <p>3D를 불러오지 못했어요. 새로고침하거나 무지개 홈으로 돌아가 주세요.</p>
+      <a href="../">Rainbow home</a
+      ><button type="button" onclick="location.reload()">Reload</button>
+    </div>
+    <p class="sr-only" id="announcement" role="status" aria-live="polite"></p>
+    <noscript
+      ><div class="error-message">
+        <h1>xxrainow Studio</h1>
+        <p>인터랙티브 화면을 보려면 JavaScript를 켜주세요.</p>
+        <a href="../">Rainbow home</a>
+      </div></noscript
+    >
+    <script type="module" src="./studio.js"></script>
+    <script>
+      window.addEventListener(
+        'error',
+        function (e) {
+          if (e.target && e.target.tagName === 'SCRIPT')
+            document.getElementById('load-error').hidden = false;
+        },
+        true,
+      );
+    </script>
+  </body>
+</html>
