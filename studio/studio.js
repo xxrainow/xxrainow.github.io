@@ -26,8 +26,8 @@ function projectLinks(item) {
   links.setAttribute('aria-label', item.title + ' links');
   const detail = document.createElement('a');
   detail.href = item.detailUrl;
-  detail.textContent = 'View Project';
-  detail.setAttribute('aria-label', item.title + ' — View Project');
+  detail.textContent = 'Detail';
+  detail.setAttribute('aria-label', item.title + ' — Detail');
   links.append(detail);
   for (const [field, label] of [['github', 'Code'], ['demo', 'Live Demo'], ['youtube', 'Youtube']]) {
     const href = projectLinkUrl(item[field]);
@@ -588,7 +588,7 @@ class Gallery extends SceneView {
   select(mesh) {
     this.interact();
     if (this.selected === mesh) {
-      location.assign(this.medias[mesh.userData.index].item.detailUrl);
+      this.showOverview(!this.overview);
       return;
     }
     if (this.selected) this.close(true);
@@ -604,7 +604,7 @@ class Gallery extends SceneView {
     animate(this.expansion, { value: 1, duration: 0.8, ease: 'power4.out' });
     announce(
       this.medias[mesh.userData.index].item.title +
-        ' 미리보기. 다시 선택하면 프로젝트 상세 페이지로 이동합니다.',
+        ' 미리보기. 다시 선택하면 설명이 열립니다.',
     );
   }
   showOverview(open) {
@@ -783,7 +783,7 @@ class Gallery extends SceneView {
       const hit = this.ray(this.planes);
       this.hover = hit?.object || null;
       if (this.selected && this.hover === this.selected)
-        showLabel('View project', 'overview');
+        showLabel(this.overview ? 'Close' : 'Overview', 'overview');
       else hideLabel();
       if (!this.selected) {
         this.setCaption(
@@ -847,12 +847,12 @@ class ProjectIndex extends SceneView {
     projects.slice(0, 24).forEach((item, i) => {
       const card = document.createElement('article');
       card.className = 'project-card';
-      const button = document.createElement('a');
+      const button = document.createElement('button');
       button.className = 'tile';
-      button.href = item.detailUrl;
+      button.type = 'button';
       button.setAttribute(
         'aria-label',
-        `${item.title}, ${projectMeta(item)} — View Project`,
+        `${item.title}, ${projectMeta(item)} — 미리보기 열기`,
       );
       const chip = document.createElement('span');
       chip.className = 'chip';
@@ -936,7 +936,9 @@ class ProjectIndex extends SceneView {
         this.playTile(tile);
       });
       button.addEventListener('blur', () => this.stopTile(tile));
-      // Native links support direct navigation, a new tab, and keyboard activation.
+      button.addEventListener('click', () =>
+        openLightbox(item, () => this.enabled && this.resumeVisible()),
+      );
     });
     this.scroll.addEventListener(
       'wheel',

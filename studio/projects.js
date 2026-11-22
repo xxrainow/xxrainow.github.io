@@ -38,7 +38,7 @@ export const projects = [
   },
   // 02번 카드
   {
-    slug: 'find a piece of art in Paris',
+    slug: 'paris',
     video: '',
     title: 'Find a piece of art in Paris',
     category: 'Web Interaction Design',
@@ -64,7 +64,7 @@ export const projects = [
   // 04번 카드
   {
     slug: 'ploop',
-    video: '',
+    video: './media/ploop-04.mp4',
     title: 'Ploop',
     category: 'Development | App service',
     year: '2025',

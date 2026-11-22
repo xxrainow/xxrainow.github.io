@@ -106,7 +106,7 @@ python3 -m http.server 4175
 ## 개별 포트폴리오 주소와 상세 내용
 
 각 프로젝트는 이제 `/studio/project/slug/` 주소에서 따로 볼 수 있습니다.
-예: `/studio/project/jeju-festival-maker/`. Projects 카드나 View Project를 선택하면 이동합니다. Gallery에서는 영상을 한 번 선택해 확대하고, 다시 선택하거나 Open project를 누르면 이동합니다.
+예: `/studio/project/jeju-festival-maker/`. Projects 카드를 선택하면 기존 미리보기 창이 열립니다. Gallery는 한 번 선택해 확대하고, 다시 선택하면 기존 설명을 열고 닫습니다. 카드 아래·미리보기 창·Gallery의 Detail 버튼을 눌러야 개별 상세 페이지로 이동합니다.
 
 `projects.js`의 `slug`가 주소를 결정합니다. 영어 소문자·숫자·하이픈을 사용하고 중복시키지 마세요. 제목을 바꿀 때도 slug를 유지하면 기존 공유 주소가 유지됩니다.
 
@@ -143,3 +143,8 @@ GitHub Pages에서 직접 주소 접속과 새로고침이 동작하도록 각 U
 node studio/generate-project-pages.mjs
 node studio/generate-project-pages.mjs --check
 ```
+
+
+### 미리보기와 Detail 버튼
+
+Projects 카드 클릭은 미리보기 창을 열고, Gallery는 기존 확대·설명 동작을 유지합니다. 상세 페이지는 별도 **Detail** 링크로 이동합니다. Code·Live Demo·Youtube 버튼은 각각 기존 외부 주소로 연결됩니다.
