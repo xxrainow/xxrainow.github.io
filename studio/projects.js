@@ -2,6 +2,9 @@
  * 영상 교체 안내 — 이 주석은 웹 화면에 표시되지 않습니다.
  * 각 객체 하나가 영상 카드 하나입니다. 아래 Demo 값을 내 작업 정보로 바꾸세요.
  *
+ * pdf: PDF 경로. 예: './media/presentation.pdf'. 빈 값이면 PDF 영역을 숨깁니다.
+ * pdfPages: 미리보기 페이지 번호(1부터). 예: [1, 3, 5, 8]. 기본 앞 4장, 최대 6장.
+ * ppt: 원본 PPT/PPTX 경로(선택). 입력하면 Download PPT 버튼을 표시합니다.
  * slug: 상세 주소에 들어갈 고유 이름입니다. 예: 'jeju-festival-maker'. 제목을 바꿔도 유지하세요.
  * role / period / team / stack: 상세 페이지의 역할·기간·팀·사용 기술(배열)입니다. 선택 입력입니다.
  * sections: [{ heading: '제목', body: ['본문'], images: [{ src: './media/image.png', alt: '설명' }] }]
@@ -27,30 +30,54 @@
 export const projects = [
   // 01번 카드
   {
-    slug: 'campus-3dmap',
-    video: './media/demo-01.mp4',
-    title: 'campus 3Dmap',
-    category: 'Development | Service',
-    year: '2026',
-    description: '건물 입구부터 건물 안의 호실까지 안내하는 3D 캠퍼스 길찾기 서비스',
-    github: 'https://github.com/xxrainow/campus3DMap',
-    demo: 'https://2026endpoint.github.io/team12/',
+    slug: 'ploop',
+    video: './media/ploop-01.mp4',
+    title: 'Ploop',
+    category: 'Development | App service',
+    year: '2025',
+    description:
+      'Pick, Plog, and Keep the Loop Going! APAC Solution Challenge 2025 Project | Side Impact 2025 Project',
+    github: 'https://github.com/Ploop-2025-Solution-Challenge',
+    demo: '',
+    youtube: 'https://www.youtube.com/watch?feature=shared&v=rB9DLo2qyMw',
+    pdf: '',
+    pdfPages: [1, 3, 5, 8], // 미리 볼 페이지
+    ppt: '', // 원본 PPT도 제공할 때만 경로 입력
   },
   // 02번 카드
   {
     slug: 'paris',
-    video: '',
+    video: './media/paris-02.mp4',
     title: 'Find a piece of art in Paris',
     category: 'Web Interaction Design',
     year: '2025',
     description: '풍부한 인터렉션 경험과 함께 파리의 미술 작품을 탐험해보세요',
     github: 'https://github.com/xxrainow/Web-Interactive-Design-2025',
     demo: 'https://xxrainow.github.io/Web-Interactive-Design-2025/final-web/',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 03번 카드
-  {
+   {
+    slug: 'campus-3dmap',
+    video: './media/3dmap-03.mp4',
+    title: 'campus 3Dmap',
+    category: 'Development | Service',
+    year: '2026',
+    description:
+      '건물 입구부터 건물 안의 호실까지 안내하는 3D 캠퍼스 길찾기 서비스',
+    github: 'https://github.com/xxrainow/campus3DMap',
+    demo: 'https://2026endpoint.github.io/team12/',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
+  },
+  // 04번 카드
+
+    {
     slug: 'jeju-festival-maker',
-    video: './media/demo-03.mp4',
+    video: './media/jeju-04.mp4',
     title: 'jeju-festival-maker',
     category: 'Development | AI Agent',
     year: '2026',
@@ -60,18 +87,9 @@ export const projects = [
     github: 'https://github.com/xxrainow/jeju-festival-maker',
     demo: 'https://jeju-festival-maker.streamlit.app/',
     youtube: 'https://youtu.be/1j2_b9JA_Cs',
-  },
-  // 04번 카드
-  {
-    slug: 'ploop',
-    video: './media/ploop-04.mp4',
-    title: 'Ploop',
-    category: 'Development | App service',
-    year: '2025',
-    description: 'Pick, Plog, and Keep the Loop Going! APAC Solution Challenge 2025 Project | Side Impact 2025 Project',
-    github: 'https://github.com/Ploop-2025-Solution-Challenge',
-    demo: '',
-    youtube: 'https://www.youtube.com/watch?feature=shared&v=rB9DLo2qyMw'
+    pdf: './media/jeju-festival-maker.pdf?v=verified-20261123',
+    pdfPages: [1, 3, 5, 8],
+    ppt: '',
   },
   // 05번 카드
   {
@@ -83,6 +101,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 06번 카드
   {
@@ -94,6 +115,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 07번 카드
   {
@@ -105,6 +129,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 08번 카드
   {
@@ -116,6 +143,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 09번 카드
   {
@@ -127,6 +157,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 10번 카드
   {
@@ -138,6 +171,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 11번 카드
   {
@@ -149,6 +185,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 12번 카드
   {
@@ -160,6 +199,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 13번 카드
   {
@@ -171,6 +213,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 14번 카드
   {
@@ -182,6 +227,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 15번 카드
   {
@@ -193,6 +241,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 16번 카드
   {
@@ -204,6 +255,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 17번 카드
   {
@@ -215,6 +269,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 18번 카드
   {
@@ -226,6 +283,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 19번 카드
   {
@@ -237,6 +297,9 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
   // 20번 카드
   {
@@ -248,12 +311,20 @@ export const projects = [
     description: 'Demo',
     github: '',
     demo: '',
+    pdf: '',
+    pdfPages: [1, 2, 3, 4],
+    ppt: '',
   },
 ].map((project, index) => ({
   ...project,
   id: index + 1,
   slug: project.slug || 'project-' + (index + 1),
-  detailUrl: new URL('project/' + encodeURIComponent(project.slug || 'project-' + (index + 1)) + '/', import.meta.url).href,
+  detailUrl: new URL(
+    'project/' +
+      encodeURIComponent(project.slug || 'project-' + (index + 1)) +
+      '/',
+    import.meta.url,
+  ).href,
   // 파일명에 .mp4까지 포함하세요. 외부 주소와 로컬 상대 경로 모두 지원합니다.
   url: project.video?.trim()
     ? new URL(project.video.trim(), import.meta.url).href

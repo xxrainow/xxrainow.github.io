@@ -18,6 +18,7 @@ main {width:var(--page);margin:0 auto}
 .eyebrow {margin:0 0 28px;font-size:13px;line-height:1.6;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 .eyebrow span {padding:0 9px;color:#555}
 h1 {font-family:Newsreader,Georgia,serif;font-weight:300;font-size:clamp(48px,7.4vw,104px);letter-spacing:-.045em;line-height:1.06;margin:0;overflow-wrap:anywhere;text-wrap:balance}
+.project-heading h1 {font-size:clamp(36px,5vw,68px);line-height:1.12;letter-spacing:-.035em}
 .intro-copy {font-size:clamp(17px,1.7vw,22px);line-height:1.85;letter-spacing:-.02em;max-width:780px;margin:32px 0 0;word-break:keep-all;white-space:pre-line}
 .hero-actions {display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
 .action {display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:12px 18px;border:1px solid #3a3a3d;border-radius:5px;background:#1c1c1e;color:var(--ink);font-size:14px;transition:background .2s,border-color .2s}
@@ -63,6 +64,7 @@ pre {padding:22px;background:#18181b;border:1px solid var(--line);border-radius:
   .project-heading {padding:66px 0 42px}
   .eyebrow {font-size:11px;margin-bottom:22px}
   h1 {font-size:clamp(43px,10vw,64px)}
+  .project-heading h1 {font-size:clamp(30px,7.5vw,42px)}
   .intro-copy {font-size:17px;margin-top:24px}
   .hero-actions {gap:8px}
   .action {min-height:44px;padding:11px 14px;font-size:13px}
@@ -79,3 +81,34 @@ pre {padding:22px;background:#18181b;border:1px solid var(--line);border-radius:
   .project-directory {grid-template-columns:1fr}
 }
 @media(prefers-reduced-motion:reduce) {html {scroll-behavior:auto}* {transition:none!important}}
+
+/* PDF 파일이 설정된 프로젝트에만 표시되는 발표 자료 영역 */
+.presentation {margin-top:64px;padding-top:36px;border-top:1px solid var(--line)}
+.presentation-heading {display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.presentation-heading .eyebrow {margin-bottom:12px}
+.presentation-heading h2 {margin-bottom:0}
+.presentation-actions {display:flex;flex-wrap:wrap;gap:8px}
+.pdf-status {font-size:13px;line-height:1.6;color:var(--mute);margin:20px 0}
+.pdf-previews {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 20px}
+.pdf-preview {display:block;width:100%;padding:0;background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden;text-align:left;transition:border-color .2s}
+.pdf-preview:hover {border-color:var(--ink)}
+.pdf-preview canvas {display:block;width:100%;height:auto}
+.pdf-dialog {position:fixed;inset:0;width:min(1200px,calc(100% - 28px));max-width:none;max-height:calc(100dvh - 28px);margin:auto;padding:18px;background:#141416;color:var(--ink);border:1px solid #424247;border-radius:8px;overflow:auto}
+.pdf-dialog::backdrop {background:#000c;backdrop-filter:blur(8px)}
+.pdf-toolbar,.pdf-pagination,.pdf-viewer-tools {display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.pdf-toolbar {justify-content:space-between;gap:14px}
+.pdf-pagination label {display:flex;align-items:center;gap:8px;font-size:13px;color:var(--mute)}
+.pdf-pagination input {width:62px;min-height:40px;padding:8px;background:var(--bg);color:var(--ink);border:1px solid #555;border-radius:4px;font:inherit}
+.pdf-toolbar .action {min-height:40px;padding:8px 11px;font-size:12px}
+.pdf-toolbar button:disabled {opacity:.35;cursor:default}
+.pdf-dialog .pdf-status {margin:12px 0;font-size:12px}
+.pdf-surface {height:calc(100dvh - 185px);min-height:180px;overflow:auto;background:#252528;padding:16px;text-align:center;overscroll-behavior:contain}
+.pdf-surface canvas {display:block;margin:0 auto;background:white}
+@media(max-width:700px) {
+  .presentation {margin-top:44px}
+  .pdf-previews {grid-template-columns:1fr;gap:22px}
+  .pdf-dialog {width:calc(100% - 12px);max-height:calc(100dvh - 12px);padding:12px}
+  .pdf-toolbar {align-items:flex-start}
+  .pdf-surface {height:calc(100dvh - 245px);padding:8px}
+  .presentation-actions .action {font-size:12px}
+}

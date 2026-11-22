@@ -148,3 +148,32 @@ node studio/generate-project-pages.mjs --check
 ### 미리보기와 Detail 버튼
 
 Projects 카드 클릭은 미리보기 창을 열고, Gallery는 기존 확대·설명 동작을 유지합니다. 상세 페이지는 별도 **Detail** 링크로 이동합니다. Code·Live Demo·Youtube 버튼은 각각 기존 외부 주소로 연결됩니다.
+
+
+## PDF 발표 자료를 직접 추가하기
+
+PDF를 직접 넣을 수 있습니다. 변환이나 썸네일 이미지를 따로 만들 필요가 없습니다.
+
+1. PDF를 `studio/media/` 폴더에 넣습니다. 예: `presentation.pdf`.
+2. `studio/projects.js`에서 해당 프로젝트의 다음 항목을 수정합니다.
+
+```js
+pdf: './media/presentation.pdf',
+pdfPages: [1, 3, 5, 8], // 미리 볼 페이지 번호. 첫 페이지는 1입니다.
+ppt: '', // 원본도 배포하려면 './media/presentation.pptx'
+```
+
+3. `node studio/generate-project-pages.mjs`를 실행합니다.
+4. 해당 상세 페이지에서 미리보기·View Presentation·Open PDF·Download PDF를 확인합니다.
+5. PDF 파일과 수정 파일, 생성된 HTML을 함께 커밋·푸시합니다.
+
+- `pdf: ''`이면 영역과 버튼을 모두 숨깁니다. 존재하지 않는 예시 파일을 연결하지 않아도 됩니다.
+- `pdfPages`를 생략하면 앞 4장을 미리 보여줍니다. 최대 6장까지 설정할 수 있고, 중복 번호나 범위 밖 번호는 제외합니다.
+- 미리보기 이미지는 PDF.js가 브라우저에서 자동으로 만듭니다. 미리보기를 누르면 해당 페이지부터 전체 뷰어가 열립니다.
+- 전체 뷰어는 Previous/Next, 페이지 번호 입력, 확대·축소, Fit을 지원합니다. Escape 또는 Close로 닫습니다. 좌우 방향키로도 넘길 수 있습니다.
+- Open PDF는 브라우저 기본 PDF 뷰어를 새 탭으로 엽니다. 다운로드 버튼은 파일을 내려받습니다. 외부 서버 파일은 브라우저 정책에 따라 새 탭에서 열릴 수도 있습니다.
+- `ppt`는 선택입니다. 원본 파일을 같은 방식으로 넣으면 Download PPT 버튼이 추가됩니다.
+- PDF는 프로젝트 상세 페이지가 공개되는 것과 같은 범위로 공개됩니다. 공개할 자료만 넣으세요.
+- 일반적인 사용은 `studio/media/`에 파일을 넣는 방식입니다. 외부 PDF 주소도 가능하지만 외부 서버가 CORS를 허용해야 미리보기가 나옵니다.
+- PDF.js 6.5.438을 jsDelivr에서 필요할 때만 불러옵니다. 로딩이 실패해도 Open PDF·Download PDF 링크는 사용할 수 있습니다.
+- 이 한글 안내와 코드 주석은 화면에 표시되지 않습니다. 실제 PDF 안의 글자는 원본 그대로 표시됩니다.
