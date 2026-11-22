@@ -24,7 +24,7 @@ async function save(relative, html) {
   await writeFile(url, html);
 }
 for (const project of projects) {
-  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(project.slug)) throw new Error(`Use a lowercase, hyphenated slug: ${project.slug}`);
+  if (!/^[a-z0-9]+(?:[.-][a-z0-9]+)*$/.test(project.slug)) throw new Error(`Use lowercase letters/numbers separated by single dots or hyphens: ${project.slug}`);
   if (seen.has(project.slug)) throw new Error(`Duplicate project slug: ${project.slug}`);
   seen.add(project.slug);
   await save(`project/${project.slug}/index.html`, documentHTML({ title: project.title, description: project.description || project.title, body: renderProject(project, projects), slug: project.slug, prefix: '../../' }));

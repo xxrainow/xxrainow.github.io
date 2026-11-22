@@ -31,17 +31,41 @@ function imageMarkup(image, base) {
   if (!src) return '';
   return `<figure><img src="${escapeHTML(src)}" alt="${escapeHTML(data.alt || '')}" loading="lazy" decoding="async">${data.caption ? `<figcaption>${escapeHTML(data.caption)}</figcaption>` : ''}</figure>`;
 }
+// 1개 경로, 여러 경로, 문서별 설정 객체를 모두 같은 형식으로 정리합니다.
+export function presentationDocuments(project) {
+  const entries = Array.isArray(project.pdf) ? project.pdf : [project.pdf];
+  const documents = entries.map(entry => {
+    const config = typeof entry === 'string' ? { src: entry } : entry;
+    if (!config || typeof config !== 'object') return null;
+    const src = assetUrl(config.src, '../../');
+    if (!src) return null;
+    return {
+      src,
+      title: typeof config.title === 'string' ? config.title.trim() : '',
+      pages: Array.isArray(config.pages) ? config.pages : Array.isArray(project.pdfPages) ? project.pdfPages : [1, 2, 3, 4],
+      ppt: assetUrl(config.ppt || (entries.length === 1 ? project.ppt : ''), '../../'),
+    };
+  }).filter(Boolean);
+  return documents.map((document, index) => ({
+    ...document,
+    id: 'presentation-' + (index + 1),
+    title: document.title || (documents.length === 1 ? 'Presentation' : 'Document ' + (index + 1)),
+  }));
+}
 function renderPresentation(project) {
-  const src = assetUrl(project.pdf, '../../');
-  if (!src) return '';
+  const documents = presentationDocuments(project);
+  if (!documents.length) return '';
   const e = escapeHTML;
-  const ppt = assetUrl(project.ppt, '../../');
-  const pages = JSON.stringify(Array.isArray(project.pdfPages) ? project.pdfPages : [1, 2, 3, 4]);
-  return `<section id="presentation" class="presentation" data-pdf-src="${e(src)}" data-pdf-pages="${e(pages)}" aria-labelledby="presentation-heading">
-    <div class="presentation-heading"><div><p class="eyebrow">Project document</p><h2 id="presentation-heading">Presentation</h2></div><div class="presentation-actions"><button class="action" type="button" data-pdf-open hidden>View Presentation</button><a class="action secondary" href="${e(src)}" target="_blank" rel="noopener noreferrer">Open PDF</a><a class="action secondary" href="${e(src)}" download="${e(project.slug || 'presentation')}.pdf">Download PDF</a>${ppt ? `<a class="action secondary" href="${e(ppt)}" download>Download PPT</a>` : ''}</div></div>
+  const navigation = documents.length > 1
+    ? `<nav class="document-switcher" aria-label="Project documents">${documents.map(doc => `<a href="#${doc.id}">${e(doc.title)}</a>`).join('')}</nav>` : '';
+  return `<div id="presentation" class="presentations">${navigation}${documents.map((doc, index) => {
+    const headingId = doc.id + '-heading';
+    return `<section id="${doc.id}" class="presentation" data-pdf-src="${e(doc.src)}" data-pdf-pages="${e(JSON.stringify(doc.pages))}" aria-labelledby="${headingId}">
+    <div class="presentation-heading"><div><p class="eyebrow">${documents.length > 1 ? 'Document ' + String(index + 1).padStart(2, '0') + ' / ' + String(documents.length).padStart(2, '0') : 'Project document'}</p><h2 id="${headingId}">${e(doc.title)}</h2></div><div class="presentation-actions"><button class="action" type="button" data-pdf-open hidden>View Presentation</button><a class="action secondary" href="${e(doc.src)}" target="_blank" rel="noopener noreferrer" aria-label="${e(doc.title)} — Open PDF">Open PDF</a><a class="action secondary" href="${e(doc.src)}" download="${e(project.slug || 'presentation')}-${index + 1}.pdf" aria-label="${e(doc.title)} — Download PDF">Download PDF</a>${doc.ppt ? `<a class="action secondary" href="${e(doc.ppt)}" download>Download PPT</a>` : ''}</div></div>
     <p class="pdf-status" data-pdf-status role="status">Open or download the complete presentation.</p><div class="pdf-previews" data-pdf-previews></div>
-    <dialog class="pdf-dialog" data-pdf-dialog aria-label="Presentation viewer"><div class="pdf-toolbar"><div class="pdf-pagination"><button class="action secondary" type="button" data-pdf-prev>Previous</button><label>Page <input type="number" min="1" step="1" value="1" data-pdf-page> / <span data-pdf-total>—</span></label><button class="action secondary" type="button" data-pdf-next>Next</button></div><div class="pdf-viewer-tools"><button class="action secondary" type="button" data-pdf-zoom-out aria-label="Zoom out">−</button><button class="action secondary" type="button" data-pdf-fit>Fit</button><button class="action secondary" type="button" data-pdf-zoom-in aria-label="Zoom in">+</button><a class="action secondary" href="${e(src)}" target="_blank" rel="noopener noreferrer">Open PDF</a><button class="action" type="button" data-pdf-close>Close</button></div></div><p class="pdf-status" data-pdf-viewer-status role="status"></p><div class="pdf-surface"><canvas data-pdf-canvas role="img" aria-label="PDF presentation page"></canvas></div></dialog>
+    <dialog class="pdf-dialog" data-pdf-dialog aria-label="${e(doc.title)} — PDF viewer"><div class="pdf-toolbar"><div class="pdf-pagination"><button class="action secondary" type="button" data-pdf-prev>Previous</button><label>Page <input type="number" min="1" step="1" value="1" data-pdf-page> / <span data-pdf-total>—</span></label><button class="action secondary" type="button" data-pdf-next>Next</button></div><div class="pdf-viewer-tools"><button class="action secondary" type="button" data-pdf-zoom-out aria-label="Zoom out">−</button><button class="action secondary" type="button" data-pdf-fit>Fit</button><button class="action secondary" type="button" data-pdf-zoom-in aria-label="Zoom in">+</button><a class="action secondary" href="${e(doc.src)}" target="_blank" rel="noopener noreferrer">Open PDF</a><button class="action" type="button" data-pdf-close>Close</button></div></div><p class="pdf-status" data-pdf-viewer-status role="status"></p><div class="pdf-surface"><canvas data-pdf-canvas role="img" aria-label="PDF presentation page"></canvas></div></dialog>
   </section>`;
+  }).join('')}</div>`;
 }
 
 export function renderProject(project, projects) {
@@ -98,12 +122,12 @@ export function renderProject(project, projects) {
       : '<span></span>';
   return `<header class="topbar"><a class="wordmark" href="../../">xx.st <span>by xxrainow</span></a><a class="back-link" href="../../#projects">All projects</a></header>
   <main id="project-content"><article>
-    <div class="project-heading"><p class="eyebrow">${e(p.category || 'Project')}${p.year ? ` <span>/</span> ${e(p.year)}` : ''}</p><h1>${e(p.title)}</h1>${p.description ? `<p class="intro-copy">${e(p.description)}</p>` : ''}<div class="hero-actions">${links}${presentation ? '<a class="action secondary" href="#presentation">Presentation</a>' : ''}<button class="copy-link action secondary" type="button" data-copy-link hidden>Copy link</button></div></div>
+    <div class="project-heading"><p class="eyebrow">${e(p.category || 'Project')}${p.year ? ` <span>/</span> ${e(p.year)}` : ''}</p><h1>${e(p.title)}</h1>${p.description ? `<p class="intro-copy">${e(p.description)}</p>` : ''}<div class="hero-actions">${links}${presentation ? `<a class="action secondary" href="#presentation">${presentationDocuments(p).length > 1 ? 'Documents' : 'Presentation'}</a>` : ''}<button class="copy-link action secondary" type="button" data-copy-link hidden>Copy link</button></div></div>
     ${media}
     ${facts ? `<dl class="project-facts">${facts}</dl>` : ''}
-${presentation}
     ${chapters ? `<div class="case-study">${sections.length > 1 ? `<nav class="contents" aria-label="On this page"><span>In this project</span>${sections.map((section, i) => `<a href="#section-${i + 1}">${e(section.heading || 'Details')}</a>`).join('')}</nav>` : ''}<div class="chapters">${chapters}</div></div>` : ''}
     ${Array.isArray(p.images) ? `<div class="image-gallery">${p.images.map((image) => imageMarkup(image, '../../')).join('')}</div>` : ''}
+${presentation}
     <nav class="project-pagination" aria-label="Adjacent projects">${adjacent(previous, 'Previous project')}${adjacent(next, 'Next project')}</nav>
   </article></main><footer class="detail-footer"><a href="../../#projects">Back to projects</a><span>xxrainow / selected work</span></footer><p class="sr-only" id="page-status" role="status" aria-live="polite"></p>`;
 }

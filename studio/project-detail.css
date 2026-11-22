@@ -112,3 +112,11 @@ pre {padding:22px;background:#18181b;border:1px solid var(--line);border-radius:
   .pdf-surface {height:calc(100dvh - 245px);padding:8px}
   .presentation-actions .action {font-size:12px}
 }
+
+/* 문서가 여러 개이면 각 PDF를 독립된 뷰어와 페이지 설정으로 표시합니다. */
+.presentations {scroll-margin-top:32px}
+.document-switcher {display:flex;flex-wrap:wrap;gap:10px;margin-top:64px;padding-top:30px;border-top:1px solid var(--line)}
+.document-switcher a {display:inline-flex;padding:10px 14px;border:1px solid var(--line);border-radius:5px;background:#18181b;font-size:14px;line-height:1.6}
+.document-switcher a:hover {border-color:var(--mute)}
+.document-switcher + .presentation {margin-top:28px}
+.presentation {scroll-margin-top:28px}
