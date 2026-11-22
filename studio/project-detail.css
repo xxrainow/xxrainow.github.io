@@ -1,6 +1,6 @@
-@font-face {font-family:Geist;src:url('https://fonts.gstatic.com/s/geist/v5/gyByhwUxId8gMEwcGFU.woff2') format('woff2');font-weight:100 900;font-display:swap}
-@font-face {font-family:Newsreader;src:url('https://fonts.gstatic.com/s/newsreader/v26/cY9AfjOCX1hbuyalUrK4397yjA.woff2') format('woff2');font-weight:300 500;font-display:swap}
-:root {color-scheme:dark;--bg:#0c0c0d;--ink:#ededeb;--mute:#959592;--line:#2b2b2e;--page: min(1120px, calc(100% - 80px));font-family:Geist,Arial,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
+@import url('./fonts.css');
+
+:root {color-scheme:dark;--bg:#0c0c0d;--ink:#ededeb;--mute:#959592;--line:#2b2b2e;--page: min(1120px, calc(100% - 80px));font-family:var(--font-sans);background:var(--bg);color:var(--ink)}
 * {box-sizing:border-box}
 html {scroll-behavior:smooth;scroll-padding-top:30px}
 body {margin:0;-webkit-font-smoothing:antialiased}
@@ -17,7 +17,7 @@ main {width:var(--page);margin:0 auto}
 .project-heading {padding:100px 0 64px;max-width:980px}
 .eyebrow {margin:0 0 28px;font-size:13px;line-height:1.6;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
 .eyebrow span {padding:0 9px;color:#555}
-h1 {font-family:Newsreader,Georgia,serif;font-weight:300;font-size:clamp(48px,7.4vw,104px);letter-spacing:-.045em;line-height:1.06;margin:0;overflow-wrap:anywhere;text-wrap:balance}
+h1 {font-family:var(--font-sans);font-weight:300;font-size:clamp(48px,7.4vw,104px);letter-spacing:-.045em;line-height:1.06;margin:0;overflow-wrap:anywhere;text-wrap:balance}
 .project-heading h1 {font-size:clamp(36px,5vw,68px);line-height:1.12;letter-spacing:-.035em}
 .intro-copy {font-size:clamp(17px,1.7vw,22px);line-height:1.85;letter-spacing:-.02em;max-width:780px;margin:32px 0 0;word-break:keep-all;white-space:pre-line}
 .hero-actions {display:flex;flex-wrap:wrap;gap:9px;margin-top:30px}
@@ -38,7 +38,7 @@ figcaption {font-size:13px;color:var(--mute);line-height:1.7;padding-top:12px}
 .contents a:hover {color:var(--mute)}
 .chapters {min-width:0;flex:1}
 .chapter {padding:0 0 62px;scroll-margin-top:30px}
-h2 {font:400 clamp(27px,3vw,40px)/1.25 Newsreader,Georgia,serif;letter-spacing:-.03em;margin:0 0 24px;text-wrap:balance}
+h2 {font:400 clamp(27px,3vw,40px)/1.25 var(--font-sans);letter-spacing:-.03em;margin:0 0 24px;text-wrap:balance}
 .chapter p {font-size:17px;line-height:1.95;word-break:keep-all;white-space:pre-line;margin:0 0 24px}
 .chapter figure {margin:32px 0}
 pre {padding:22px;background:#18181b;border:1px solid var(--line);border-radius:4px;overflow:auto;font:14px/1.8 monospace}

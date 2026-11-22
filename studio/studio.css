@@ -1,25 +1,5 @@
-@font-face {
-  font-family: Geist;
-  src: url('https://fonts.gstatic.com/s/geist/v5/gyByhwUxId8gMEwcGFU.woff2')
-    format('woff2');
-  font-weight: 100 900;
-  font-display: swap;
-}
-@font-face {
-  font-family: Newsreader;
-  src: url('https://fonts.gstatic.com/s/newsreader/v26/cY9AfjOCX1hbuyalUrK4397yjA.woff2')
-    format('woff2');
-  font-weight: 300 500;
-  font-display: swap;
-}
-@font-face {
-  font-family: Newsreader;
-  src: url('https://fonts.gstatic.com/s/newsreader/v26/cY9CfjOCX1hbuyalUrK439vCjohC.woff2')
-    format('woff2');
-  font-weight: 300 500;
-  font-style: italic;
-  font-display: swap;
-}
+@import url('./fonts.css');
+
 :root {
   color-scheme: dark;
   --bg: #0c0c0d;
@@ -29,7 +9,7 @@
   --pill-h: #262628;
   --line: #232325;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
-  font-family: Geist, ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-sans);
   color: var(--ink);
   background: var(--bg);
 }
@@ -71,7 +51,7 @@ button:disabled {
   cursor: default;
 }
 em {
-  font-family: Newsreader, ui-serif, Georgia, serif;
+  font-family: var(--font-sans);
   font-weight: 400;
 }
 button[hidden],
@@ -170,9 +150,7 @@ button[hidden],
   position: absolute;
   bottom: 85px;
   font:
-    14px Newsreader,
-    Georgia,
-    serif;
+    14px var(--font-sans);
   font-variant-numeric: tabular-nums;
 }
 .intro button {
@@ -254,8 +232,7 @@ button[hidden],
 .overview h2,
 .lightbox h2 {
   font:
-    500 15px Geist,
-    sans-serif;
+    500 15px var(--font-sans);
   margin: 0;
 }
 .overview-heading em,
@@ -269,9 +246,7 @@ button[hidden],
 }
 .overview > p {
   font:
-    17px/1.35 Newsreader,
-    Georgia,
-    serif;
+    17px/1.35 var(--font-sans);
   color: #cfcfcc;
   max-width: 54ch;
   margin: 20px 0;
@@ -424,9 +399,7 @@ button[hidden],
   justify-content: space-between;
   align-items: center;
   font:
-    17px Newsreader,
-    Georgia,
-    serif;
+    17px var(--font-sans);
   padding: 11px 0;
   border-top: 1px solid var(--line);
 }
@@ -435,8 +408,7 @@ button[hidden],
 }
 .dock-menu a span {
   font:
-    11px Geist,
-    sans-serif;
+    11px var(--font-sans);
   color: var(--mute);
 }
 .project-scroll {
@@ -517,9 +489,7 @@ button[hidden],
 }
 .project-label p {
   font:
-    13px Newsreader,
-    Georgia,
-    serif;
+    13px var(--font-sans);
   color: var(--mute);
   margin: 0;
 }
@@ -529,9 +499,7 @@ button[hidden],
   gap: 8px;
   padding: 240px 18px 140px;
   font:
-    13px Newsreader,
-    Georgia,
-    serif;
+    13px var(--font-sans);
   color: var(--mute);
 }
 .cursor-label {
@@ -548,9 +516,7 @@ button[hidden],
   background: rgba(237, 237, 235, 0.94);
   color: var(--bg);
   font:
-    italic 16px Newsreader,
-    Georgia,
-    serif;
+    italic 16px var(--font-sans);
   left: 0;
   top: 0;
 }
@@ -559,8 +525,7 @@ button[hidden],
   height: auto;
   padding: 9px 12px;
   font:
-    500 12px Geist,
-    sans-serif;
+    500 12px var(--font-sans);
   border-radius: 4px;
 }
 .lightbox {
@@ -604,9 +569,7 @@ button[hidden],
 }
 .lightbox-description {
   font:
-    17px/1.5 Newsreader,
-    Georgia,
-    serif;
+    17px/1.5 var(--font-sans);
   color: #cfcfcc;
   max-width: 70ch;
 }
@@ -672,9 +635,7 @@ button[hidden],
 }
 .error-message h1 {
   font:
-    40px Newsreader,
-    Georgia,
-    serif;
+    40px var(--font-sans);
 }
 .error-message p {
   font-size: 15px;
@@ -684,8 +645,7 @@ button[hidden],
 .error-message a,
 .error-message button {
   font:
-    14px Geist,
-    sans-serif;
+    14px var(--font-sans);
   margin: 10px;
   padding: 12px;
   background: var(--pill);
@@ -828,7 +788,7 @@ button[hidden],
   border-radius: 5px;
   background: var(--pill);
   color: var(--ink);
-  font: 500 12px Geist, sans-serif;
+  font: 500 12px var(--font-sans);
   transition: background .25s var(--ease), border-color .25s var(--ease);
 }
 .project-links a:hover {
