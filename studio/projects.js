@@ -59,7 +59,7 @@ export const projects = [
     ppt: '',
   },
   // 03번 카드
-   {
+  {
     slug: 'campus-3dmap',
     video: './media/3dmap-03.mp4',
     title: 'campus 3Dmap',
@@ -69,13 +69,13 @@ export const projects = [
       '건물 입구부터 건물 안의 호실까지 안내하는 3D 캠퍼스 길찾기 서비스',
     github: 'https://github.com/xxrainow/campus3DMap',
     demo: 'https://2026endpoint.github.io/team12/',
-    pdf: '',
+    pdf: './media/3dmap-03.pdf',
     pdfPages: [1, 2, 3, 4],
     ppt: '',
   },
   // 04번 카드
 
-    {
+  {
     slug: 'jeju-festival-maker',
     video: './media/jeju-04.mp4',
     title: 'jeju-festival-maker',
