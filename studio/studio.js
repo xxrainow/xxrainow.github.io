@@ -24,6 +24,11 @@ function projectLinks(item) {
   const links = document.createElement('div');
   links.className = 'project-links';
   links.setAttribute('aria-label', item.title + ' links');
+  const detail = document.createElement('a');
+  detail.href = item.detailUrl;
+  detail.textContent = 'View Project';
+  detail.setAttribute('aria-label', item.title + ' — View Project');
+  links.append(detail);
   for (const [field, label] of [['github', 'Code'], ['demo', 'Live Demo'], ['youtube', 'Youtube']]) {
     const href = projectLinkUrl(item[field]);
     if (!href) continue;
@@ -583,7 +588,7 @@ class Gallery extends SceneView {
   select(mesh) {
     this.interact();
     if (this.selected === mesh) {
-      this.showOverview(!this.overview);
+      location.assign(this.medias[mesh.userData.index].item.detailUrl);
       return;
     }
     if (this.selected) this.close(true);
@@ -593,11 +598,13 @@ class Gallery extends SceneView {
       i === mesh.userData.index ? m.play() : m.pause(),
     );
     $('#gallery-close').hidden = false;
+    $('#gallery-project-link').href = this.medias[mesh.userData.index].item.detailUrl;
+    $('#gallery-project-link').hidden = false;
     $('.gallery-hint').style.opacity = '0';
     animate(this.expansion, { value: 1, duration: 0.8, ease: 'power4.out' });
     announce(
       this.medias[mesh.userData.index].item.title +
-        ' 미리보기. 다시 선택하면 설명이 열립니다.',
+        ' 미리보기. 다시 선택하면 프로젝트 상세 페이지로 이동합니다.',
     );
   }
   showOverview(open) {
@@ -641,6 +648,7 @@ class Gallery extends SceneView {
     if (!this.selected) return;
     this.showOverview(false);
     $('#gallery-close').hidden = true;
+    $('#gallery-project-link').hidden = true;
     $('.gallery-hint').style.opacity = '';
     hideLabel();
     if (immediate) {
@@ -775,7 +783,7 @@ class Gallery extends SceneView {
       const hit = this.ray(this.planes);
       this.hover = hit?.object || null;
       if (this.selected && this.hover === this.selected)
-        showLabel(this.overview ? 'Close' : 'Overview', 'overview');
+        showLabel('View project', 'overview');
       else hideLabel();
       if (!this.selected) {
         this.setCaption(
@@ -839,12 +847,12 @@ class ProjectIndex extends SceneView {
     projects.slice(0, 24).forEach((item, i) => {
       const card = document.createElement('article');
       card.className = 'project-card';
-      const button = document.createElement('button');
+      const button = document.createElement('a');
       button.className = 'tile';
-      button.type = 'button';
+      button.href = item.detailUrl;
       button.setAttribute(
         'aria-label',
-        `${item.title}, ${projectMeta(item)} — 미리보기 열기`,
+        `${item.title}, ${projectMeta(item)} — View Project`,
       );
       const chip = document.createElement('span');
       chip.className = 'chip';
@@ -928,9 +936,7 @@ class ProjectIndex extends SceneView {
         this.playTile(tile);
       });
       button.addEventListener('blur', () => this.stopTile(tile));
-      button.addEventListener('click', () =>
-        openLightbox(item, () => this.enabled && this.resumeVisible()),
-      );
+      // Native links support direct navigation, a new tab, and keyboard activation.
     });
     this.scroll.addEventListener(
       'wheel',

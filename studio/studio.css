@@ -845,3 +845,11 @@ button[hidden],
   border-radius: 6px;
   background: #18181a;
 }
+
+/* 확대된 Gallery 영상에서 개별 포트폴리오로 이동합니다. */
+.gallery-project-link {
+  position: absolute;
+  top: 76px;
+  right: 160px;
+  z-index: 8;
+}

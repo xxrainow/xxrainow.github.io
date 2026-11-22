@@ -101,3 +101,45 @@ python3 -m http.server 4175
 - 새 영상이 정상 재생되고 가로세로 비율이 맞는지 확인.
 
 실제 작업으로 바꾼 뒤에는 `index.html`의 데모·MotionSites 출처 문구와 `studio.js`의 데모 관련 문구도 실제 콘텐츠에 맞게 수정하세요. 아직 원본 데모가 남아 있다면 출처 표시는 유지하세요.
+
+
+## 개별 포트폴리오 주소와 상세 내용
+
+각 프로젝트는 이제 `/studio/project/slug/` 주소에서 따로 볼 수 있습니다.
+예: `/studio/project/jeju-festival-maker/`. Projects 카드나 View Project를 선택하면 이동합니다. Gallery에서는 영상을 한 번 선택해 확대하고, 다시 선택하거나 Open project를 누르면 이동합니다.
+
+`projects.js`의 `slug`가 주소를 결정합니다. 영어 소문자·숫자·하이픈을 사용하고 중복시키지 마세요. 제목을 바꿀 때도 slug를 유지하면 기존 공유 주소가 유지됩니다.
+
+영상·설명·Code·Live Demo·YouTube 링크가 상세 페이지에 표시됩니다. 영상이나 외부 링크가 없는 항목은 생략합니다. 추가 설명은 다음 선택 필드로 작성하세요. 이 안내는 화면에 표시되지 않으며, 실제로 입력한 내용만 표시됩니다.
+
+```js
+{
+  slug: 'my-project',
+  title: 'My Project',
+  description: '프로젝트를 소개하는 한두 문장',
+  role: '직접 맡은 역할',
+  period: '2026.09 — 2026.11',
+  team: '팀 규모와 협업 방식',
+  stack: ['Python', 'Streamlit'],
+  video: './media/my-project.mp4', // 선택
+  cover: './media/cover.png', // 영상이 없으면 대표 이미지 표시
+  github: 'https://github.com/xxrainow/my-project',
+  demo: '',
+  sections: [
+    { heading: '문제와 목표', body: ['어떤 문제를 해결하려 했는지 작성'] },
+    { heading: '구현 과정', body: ['설계·선택·시행착오 작성'], images: [
+      { src: './media/process.png', alt: '이미지 대체 설명', caption: '이미지 설명' },
+    ] },
+    { heading: '결과와 배운 점', body: ['확인한 결과와 개선할 점 작성'] },
+  ],
+}
+```
+
+본문은 일반 텍스트이며 HTML/Markdown으로 해석하지 않습니다. 실제 역할·기술·성과가 입력된 항목만 표시합니다. 이미지 경로는 기존 영상처럼 studio 폴더 기준입니다.
+
+GitHub Pages에서 직접 주소 접속과 새로고침이 동작하도록 각 URL에 실제 HTML을 생성합니다. 프로젝트를 추가하거나 slug를 변경할 때는 다음 명령을 실행한 후 생성된 `studio/project/` 폴더도 함께 커밋하세요. 생성된 HTML은 직접 편집하지 마세요. 기존 프로젝트의 본문 수정은 브라우저에서도 즉시 반영되지만, 검색 결과·JavaScript 비활성 환경의 내용도 맞추려면 같은 명령을 다시 실행하세요.
+
+```sh
+node studio/generate-project-pages.mjs
+node studio/generate-project-pages.mjs --check
+```
