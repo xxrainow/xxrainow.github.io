@@ -41,8 +41,8 @@ export const projects = [
     github: 'https://github.com/Ploop-2025-Solution-Challenge',
     demo: '',
     youtube: 'https://www.youtube.com/watch?feature=shared&v=rB9DLo2qyMw',
-    pdf: '',
-    pdfPages: [1, 3, 5, 8], // 미리 볼 페이지
+    pdf: './media/ploop-01.pdf',
+    pdfPages: [5, 6, 7, 10], // 미리 볼 페이지
     ppt: '', // 원본 PPT도 제공할 때만 경로 입력
   },
   // 02번 카드
